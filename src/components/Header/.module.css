@@ -1,0 +1,41 @@
+:root {
+    --font-Color: #ddd; 
+}
+
+.mainHeader {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    background-color: #2f2f2f;
+    font-family: 'Silkscreen', sans-serif;
+    color: var(--font-Color);
+    box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.75);
+}
+
+.header {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    background-color: #263238;
+    padding: 2rem 10rem;
+}
+
+.header a {
+    color: inherit;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 700;
+    transition: all 0.2s;
+}
+
+.header a:hover {
+    color: #0d6efc;
+}
+
+.title {
+    color: #ff0;
+    display: inline-block;
+    -webkit-text-stroke: 2px #3761a8;
+}
