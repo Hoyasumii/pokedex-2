@@ -95,12 +95,29 @@ s {
     gap: 1rem;
 }
 
+.grid.s4 {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    height: 35vh;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
 .blue {
     background-color: #30a7d7;
 }
 
+.grid.s4 > .gray-2 {
+    padding: 1rem;
+    border-radius: .5rem;
+}
+
 .gray {
     background-color: #a4a4a4;
+}
+
+.gray-2 {
+    background-color: #cfcfcf;
+
 }
 
 .grid div {

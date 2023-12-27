@@ -88,22 +88,27 @@ export default function Modal({ running, setRunning, id=null }) { // TODO: Usar 
                         
                     </div>
 
-                    <p>Movimentos:</p>
-                    { data.moves.map((move) => {
-                        return <p>{ unslugify(move.move.name) }</p>
-                    }) }
+                    <div className={ module.moves }>Movimentos:</div>
+                    <div className="grid s4">
+                        { data.moves.map((move) => {
+                            return <div className='gray-2'><s>{ unslugify(move.move.name) }</s></div>
+                        }) }
+
+                    </div>
                 </>
             ));
         }).catch(() => {
             setModalTitle("Erro");
             setModalBody((<p>O Pokémon buscado não existe.</p>));
         })
+
+        setRunning(false);
     
-    }, [ running ]);
+    }, [ running, setRunning ]);
 
     return (
         <>
-            <div className="modal modal-lg fade" id="modal" tabIndex="-1" aria-labelledby="modalLabel" aria-hidden="true" data-bs-backdrop="static">
+            <div className="modal modal-lg fade" id="modal" tabIndex="-1" aria-labelledby="modalLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">

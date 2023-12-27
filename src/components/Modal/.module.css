@@ -13,13 +13,17 @@
     border-radius: 1rem;
 }
 
-.pokemonName {
+.pokemonName, .moves {
     display: flex;
     align-items: start;
     gap: .3rem;
     font-size: 2rem;
     font-weight: 700;
     width: fit-content;
+}
+
+.moves {
+    padding-left: .5rem;
 }
 
 .pokemonNumber {
