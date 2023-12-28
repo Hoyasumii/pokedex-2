@@ -19,8 +19,7 @@ import unslugify from '../../scripts/unslugify';
 import stats from '../../data/stats.json';
 import types from '../../data/types.json';
 
-export default function Modal({ running, setRunning, id, setId }) { 
-    // TODO: Usar esse id para criar um acesso rápido ao carregamento
+export default function Modal({ running, setRunning}) { 
 
     const [ modalTitle, setModalTitle ] = useState();
 
@@ -28,15 +27,12 @@ export default function Modal({ running, setRunning, id, setId }) {
     
     useEffect(() => {
         
-        if (id === null) {
-            if (getInput() === "") {
-                setModalTitle("Erro");
-                setModalBody("O campo de pesquisa está vazio.");
-                setRunning(false);
-                setId(null);
-                return;
-            } 
-        }
+        if (getInput() === "") {
+            setModalTitle("Erro");
+            setModalBody("O campo de pesquisa está vazio.");
+            setRunning(false);
+            return;
+        } 
         
         setModalTitle("Pesquisando");
         setModalBody((
@@ -115,9 +111,8 @@ export default function Modal({ running, setRunning, id, setId }) {
         })
 
         setRunning(false);
-        setId(null);
 
-    }, [ running, setRunning, id, setId ]);
+    }, [ running, setRunning ]);
 
     return (
         <>
