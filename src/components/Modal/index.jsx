@@ -32,6 +32,8 @@ export default function Modal({ running, setRunning, id, setId }) {
             if (getInput() === "") {
                 setModalTitle("Erro");
                 setModalBody("O campo de pesquisa está vazio.");
+                setRunning(false);
+                setId(null);
                 return;
             } 
         }
