@@ -1,1 +1,80 @@
 @import url('https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap');
+
+.grid {
+    padding: 1rem;
+    border-radius: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.grid.s4 {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    height: 35vh;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+@media (max-width: 1000px) {
+    .grid.s4 {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media (max-width: 425px) {
+    .grid.s4 {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 375px) {
+    .grid {
+        grid-template-columns: 1fr;
+        gap: .75rem;
+    }
+    .grid.s4 {
+        grid-template-columns: 1fr;
+    }
+}
+
+.blue {
+    background-color: #30a7d7;
+}
+
+.grid.s4 > .gray-2 {
+    padding: 1rem;
+    border-radius: .5rem;
+}
+
+.gray {
+    background-color: #a4a4a4;
+}
+
+.gray-2 {
+    background-color: #cfcfcf;
+
+}
+
+s {
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.white-text {
+    color: #fff;
+}
+
+.simple-flex {
+    display: flex;
+    justify-content: space-between;
+}
+
+.simple-list {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: .5rem;
+    min-height: 40vh;
+    max-height: 40vh;
+    overflow: hidden;
+    overflow-y: scroll;
+}

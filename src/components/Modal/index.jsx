@@ -15,17 +15,24 @@ import getInput from '../../scripts/getInput';
 import useAPI from '../../scripts/useAPI';
 import unslugify from '../../scripts/unslugify';
 
+// LocalStorage Scripts
+import add from '../../scripts/localStorage/add';
+
 // JSON Data
 import stats from '../../data/stats.json';
 import types from '../../data/types.json';
 
-export default function Modal({ running, setRunning}) { 
+export default function Modal({ running, setRunning, setLs }) { 
 
     const [ modalTitle, setModalTitle ] = useState();
 
     const [ modalBody, setModalBody ] = useState();
     
     useEffect(() => {
+
+        if (!running) {
+            return;
+        }
         
         if (getInput() === "") {
             setModalTitle("Erro");
@@ -42,6 +49,9 @@ export default function Modal({ running, setRunning}) {
         ));
         
         useAPI(getInput()).then((data) => {
+
+            
+            add(data.name, setLs);
 
             const pokemonTypes = data.types.map((item) => {
 
@@ -60,7 +70,7 @@ export default function Modal({ running, setRunning}) {
                 totalStats += item.base_stat;
                 return (
                     <div>
-                        <div><s>{ stats[`${item.stat.name}`] }</s>: { item.base_stat }</div>
+                        <div className='white-text'><s>{ stats[`${item.stat.name}`] }</s>: { item.base_stat }</div>
                     </div>
                 );
             });
@@ -82,10 +92,10 @@ export default function Modal({ running, setRunning}) {
                             </div>
 
                             <div className="grid blue">
-                                <div><s>Peso:</s> { data.weight / 10 } kg</div>
-                                <div><s>Altura:</s> { data.height / 10 } m</div>
-                                <div><s>Exp. base:</s> { data.base_experience == null ? "Desconhecido" : `${ data.base_experience }` }</div>
-                                <div><s>Estatísticas:</s> { totalStats }</div>
+                                <div className='white-text'><s>Peso:</s> { data.weight / 10 } kg</div>
+                                <div className='white-text'><s>Altura:</s> { data.height / 10 } m</div>
+                                <div className='white-text'><s>Exp. base:</s> { data.base_experience == null ? "Desconhecido" : `${ data.base_experience }` }</div>
+                                <div className='white-text'><s>Estatísticas:</s> { totalStats }</div>
                             </div>
 
                             <div className="grid gray">
@@ -99,7 +109,7 @@ export default function Modal({ running, setRunning}) {
                     <div className={ module.moves }>Movimentos:</div>
                     <div className="grid s4">
                         { data.moves.map((move) => {
-                            return <div className='gray-2'><s>{ unslugify(move.move.name) }</s></div>
+                            return <div className='gray-2 white-text'><s>{ unslugify(move.move.name) }</s></div>
                         }) }
 
                     </div>
@@ -112,7 +122,7 @@ export default function Modal({ running, setRunning}) {
 
         setRunning(false);
 
-    }, [ running, setRunning ]);
+    }, [ running ]);
 
     return (
         <>

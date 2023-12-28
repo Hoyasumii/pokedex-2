@@ -1,0 +1,17 @@
+.card {
+    background-color: #f2f2f2;
+    padding: 1rem;
+    border-radius: .5rem;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, .2);
+    border: 0;
+    text-align: start;
+    transition: background-color .2s ease-in-out;
+}
+
+.card:hover {
+    background-color: #e6e6e6;
+}
+
+.card:active {
+    background-color: #d9d9d9;
+}

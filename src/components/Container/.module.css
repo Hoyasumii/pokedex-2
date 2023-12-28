@@ -1,5 +1,10 @@
-.container {
+.containerSingleChildren {
     display: flex;
     justify-content: center;
     margin: 5rem 0;
+}
+
+.containerMultipleChildren {
+    margin: 5rem 0;
+    
 }
