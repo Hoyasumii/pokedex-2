@@ -22,16 +22,17 @@
 }
 
 @media (max-width: 425px) {
+    
+    .grid {
+        grid-template-columns: 1fr;
+        gap: .75rem;
+    }
     .grid.s4 {
         grid-template-columns: 1fr 1fr;
     }
 }
 
 @media (max-width: 375px) {
-    .grid {
-        grid-template-columns: 1fr;
-        gap: .75rem;
-    }
     .grid.s4 {
         grid-template-columns: 1fr;
     }

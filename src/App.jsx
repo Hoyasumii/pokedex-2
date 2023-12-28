@@ -50,6 +50,26 @@ function App() {
 		setLs(localStorage.getItem("data"));
 	}, [ ls ]);
 
+	let lastSearches = null;
+	
+	if (size() > 0) {
+		lastSearches = (
+			<div className="simple-list">
+				{ get().map((item) => {
+					return (
+						<Card name={ unslugify(item) } />
+					)
+				}) }
+			</div>
+		)
+	} else {
+		lastSearches = (
+			<div className="alert alert-primary" role="alert">
+				Ainda não há buscas realizadas
+			</div>
+		)
+	}
+
 	const converterObj = new showdown.Converter();
 
 	return (
@@ -84,8 +104,8 @@ function App() {
 							<i className="bi bi-trash"></i>
 						</button>
 					</div>
-					
-					
+
+					{ lastSearches }
 					
 				</div>
 			</div>
