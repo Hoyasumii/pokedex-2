@@ -18,10 +18,12 @@ import './App.css';
 // JS Scripts
 import myModal from "./scripts/myModal";
 import showdown from "showdown";
+import unslugify from "./scripts/unslugify";
 
 // LocalStorage Scripts
 import create from "./scripts/localStorage/create";
 import size from "./scripts/localStorage/size";
+import get from "./scripts/localStorage/get";
 
 // JSON Data
 import about from "./data/about.json";
@@ -77,6 +79,7 @@ function App() {
 						<button className="btn btn-dark" onClick={() => { 
 							localStorage.clear(); 
 							create();
+							setLs(localStorage.getItem("data"));
 						}}>
 							<i className="bi bi-trash"></i>
 						</button>
@@ -85,7 +88,11 @@ function App() {
 					{
 						size() > 0 ? (
 						<div className="simple-list">
-
+							{ get().map((item) => {
+								return (
+									<Card name={ unslugify(item) } />
+								)
+							}) }
 						</div>
 						) : (
 						<div className="alert alert-primary" role="alert">
