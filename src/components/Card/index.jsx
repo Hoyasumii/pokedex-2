@@ -1,8 +1,14 @@
 import module from './.module.css';
 
-export default function Card({ name, setName }) {
+// Form Scripts
+import setInput from '../../scripts/form/setInput';
+
+export default function Card({ name, setRunning }) {
     return (
-        <button className={ module.card } onClick={() => { alert("Hello World") }}>
+        <button className={ module.card } onClick={() => { 
+            setInput(name);
+            setRunning(true);
+        }}>
             <s>{ name }</s>
         </button>
     );

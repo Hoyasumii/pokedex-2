@@ -57,7 +57,7 @@ function App() {
 			<div className="simple-list">
 				{ get().map((item) => {
 					return (
-						<Card name={ unslugify(item) } />
+						<Card name={ unslugify(item) } setRunning={setRunning} />
 					)
 				}) }
 			</div>

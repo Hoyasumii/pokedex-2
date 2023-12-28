@@ -18,6 +18,9 @@ import unslugify from '../../scripts/unslugify';
 // LocalStorage Scripts
 import add from '../../scripts/localStorage/add';
 
+// Form Scripts
+import clearInput from '../../scripts/form/clearInput';
+
 // JSON Data
 import stats from '../../data/stats.json';
 import types from '../../data/types.json';
@@ -119,6 +122,7 @@ export default function Modal({ running, setRunning, setLs }) {
             setModalBody((<p>O Pokémon buscado não existe.</p>));
         })
 
+        clearInput();
         setRunning(false);
 
     }, [ running ]);
