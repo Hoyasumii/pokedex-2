@@ -85,21 +85,25 @@ function App() {
 						</button>
 					</div>
 					
-					{
-						size() > 0 ? (
-						<div className="simple-list">
-							{ get().map((item) => {
-								return (
-									<Card name={ unslugify(item) } />
-								)
-							}) }
-						</div>
-						) : (
-						<div className="alert alert-primary" role="alert">
-							Ainda não há buscas realizadas
-						</div>
-						)
-					}
+					{(() => {
+						if (size() > 0) {
+							return (
+								<div className="simple-list">
+									{ get().map((item) => {
+										return (
+											<Card name={ unslugify(item) } />
+										)
+									}) }
+								</div>
+							)
+						} else {
+							return (
+								<div className="alert alert-primary" role="alert">
+									Ainda não há buscas realizadas
+								</div>
+							)
+						}
+					})()}
 					
 				</div>
 			</div>
