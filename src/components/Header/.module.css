@@ -31,7 +31,8 @@
 }
 
 .header a:hover {
-    color: #0d6efc;
+    /* color: #0d6efc; */
+    text-decoration: underline;
 }
 
 .title {

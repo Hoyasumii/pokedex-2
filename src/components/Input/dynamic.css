@@ -1,0 +1,18 @@
+.pokemon-input {
+    min-width: 50%;
+    max-width: 50%;
+}
+
+@media (max-width: 1024px) {
+    .pokemon-input {
+        min-width: 75%;
+        max-width: 75%;
+    }
+}
+
+@media (max-width: 768px) or (orientation: portrait) {
+    .pokemon-input {
+        min-width: 90%;
+        max-width: 90%;
+    }
+}

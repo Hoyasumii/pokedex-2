@@ -1,5 +1,7 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-key */
 /* eslint-disable react-hooks/rules-of-hooks */
+/* eslint-disable react-hooks/exhaustive-deps */
 
 // React Imports
 import { useState, useEffect } from 'react';
@@ -13,19 +15,26 @@ import getInput from '../../scripts/getInput';
 import useAPI from '../../scripts/useAPI';
 import unslugify from '../../scripts/unslugify';
 
-export default function Modal({ running, setRunning, id=null }) { // TODO: Usar esse id para criar um acesso rápido ao carregamento
+// JSON Data
+import stats from '../../data/stats.json';
+import types from '../../data/types.json';
+
+export default function Modal({ running, setRunning, id, setId }) { 
+    // TODO: Usar esse id para criar um acesso rápido ao carregamento
 
     const [ modalTitle, setModalTitle ] = useState();
 
     const [ modalBody, setModalBody ] = useState();
     
     useEffect(() => {
-
-        if (getInput() === "") {
-            setModalTitle("Erro");
-            setModalBody("O campo de pesquisa está vazio.");
-            return;
-        } 
+        
+        if (id === null) {
+            if (getInput() === "") {
+                setModalTitle("Erro");
+                setModalBody("O campo de pesquisa está vazio.");
+                return;
+            } 
+        }
         
         setModalTitle("Pesquisando");
         setModalBody((
@@ -42,7 +51,7 @@ export default function Modal({ running, setRunning, id=null }) { // TODO: Usar 
 
                 return (
                     <div className={ `pokemon-type ${type}` }>
-                        { item.type.name }
+                        { types[item.type.name] }
                     </div>
                 );
             });
@@ -53,7 +62,7 @@ export default function Modal({ running, setRunning, id=null }) { // TODO: Usar 
                 totalStats += item.base_stat;
                 return (
                     <div>
-                        <div><s>{ unslugify(item.stat.name) }</s>: { item.base_stat }</div>
+                        <div><s>{ stats[`${item.stat.name}`] }</s>: { item.base_stat }</div>
                     </div>
                 );
             });
@@ -77,7 +86,7 @@ export default function Modal({ running, setRunning, id=null }) { // TODO: Usar 
                                 <div><s>Peso:</s> { data.weight / 10 } kg</div>
                                 <div><s>Altura:</s> { data.height / 10 } m</div>
                                 <div><s>Exp. base:</s> { data.base_experience == null ? "Desconhecido" : `${ data.base_experience }` }</div>
-                                <div><s>Total Stats:</s> { totalStats }</div>
+                                <div><s>Estatísticas:</s> { totalStats }</div>
                             </div>
 
                             <div className="grid gray">
@@ -103,8 +112,9 @@ export default function Modal({ running, setRunning, id=null }) { // TODO: Usar 
         })
 
         setRunning(false);
-    
-    }, [ running, setRunning ]);
+        setId(null);
+
+    }, [ running, setRunning, id, setId ]);
 
     return (
         <>

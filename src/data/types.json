@@ -1,0 +1,20 @@
+{
+    "normal": "Normal",
+    "fire": "Fogo",
+    "water": "Água",
+    "electric": "Elétrico",
+    "grass": "Grama",
+    "ice": "Gelo",
+    "fighting": "Lutador",
+    "poison": "Venenoso",
+    "ground": "Terra",
+    "flying": "Voador",
+    "psychic": "Psíquico",
+    "bug": "Inseto",
+    "rock": "Pedra",
+    "ghost": "Fantasma",
+    "dragon": "Dragão",
+    "dark": "Noturno",
+    "steel": "Aço",
+    "fairy": "Fada"
+}
