@@ -102,6 +102,24 @@ s {
     overflow-y: scroll;
 }
 
+@media (max-width: 1000px) {
+    .grid.s4 {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media (max-width: 425px) {
+    .grid.s4 {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 375px) {
+    .grid.s4 {
+        grid-template-columns: 1fr;
+    }
+}
+
 .blue {
     background-color: #30a7d7;
 }

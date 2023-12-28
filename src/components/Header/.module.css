@@ -20,6 +20,7 @@
     align-items: center;
     background-color: #263238;
     padding: 2rem 10rem;
+    text-align: center;
 }
 
 .header a {
@@ -30,8 +31,16 @@
     transition: all 0.2s;
 }
 
+@media (orientation: portrait) {
+    .header {
+        padding: 2rem 2rem;
+    }
+    .header a {
+        font-size: 1rem;
+    }
+}
+
 .header a:hover {
-    /* color: #0d6efc; */
     text-decoration: underline;
 }
 

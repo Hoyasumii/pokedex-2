@@ -19,7 +19,6 @@ function App() {
 
 	// TODO: Criar uma pergunta simples do plural de Pokémon e explicar que o plural de Pokémon é Pokémon. Colocar essa pergunta num botão de interrogação no canto da página
 	// TODO: CSS Modules não são tão funcionais assim!
-	// TODO: Adicionar responsividade
 	// TODO: Criar o README.md
 
 	const [ running, setRunning ] = useState(false);

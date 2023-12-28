@@ -71,6 +71,7 @@ export default function Modal({ running, setRunning, id, setId }) {
             setModalBody((
                 <>
                     <div className={ module.pokemonContainer }>
+                        
                         <img className={ module.pokemonImg } src={ data.sprites.other['official-artwork'].front_default } alt="" srcSet="" />
 
                         <div className={ module.infoContainer }>
