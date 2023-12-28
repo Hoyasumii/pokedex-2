@@ -30,13 +30,12 @@ import about from "./data/about.json";
 
 function App() {
 
-	// TODO: Criar o README.md
-	// TODO: Usar o localStorage para armazenar as últimas buscas e ter um botão de limpar as últimas buscas. Eu preciso instanciar o localStorage antes de usar ele
-
 	const [ running, setRunning ] = useState(false);
 
 	const [ ls, setLs] = useState([]);
 
+	create();
+	
 	useEffect(() => {
 
 		if (running) {
@@ -46,7 +45,6 @@ function App() {
 	, [ running ]);
 
 	useEffect(() => {
-		create();
 		setLs(localStorage.getItem("data"));
 	}, [ ls ]);
 
