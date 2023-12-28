@@ -11,7 +11,7 @@ import module from "./.module.css";
 import "./dynamic.css";
 
 // JS Scripts
-import getInput from '../../scripts/getInput';
+import getInput from '../../scripts/form/getInput';
 import useAPI from '../../scripts/useAPI';
 import unslugify from '../../scripts/unslugify';
 
@@ -49,7 +49,6 @@ export default function Modal({ running, setRunning, setLs }) {
         ));
         
         useAPI(getInput()).then((data) => {
-
             
             add(data.name, setLs);
 
