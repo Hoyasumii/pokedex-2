@@ -29,7 +29,7 @@ function App() {
 	const [ running, setRunning ] = useState(false);
 	const [ ls, setLs] = useState([]);
 	const [ about, setAbout ] = useState("");
-	const [ pokemonList, setPokeonList ] = useState([]);
+	const [ pokemonList, setPokemonList ] = useState(new Set());
 
 	create();
 	
@@ -46,39 +46,29 @@ function App() {
 	}, [ ls ]);
 
 	// Setting About section
-	useEffect(() => {
-		const useMarkdown = async (path) => {
-			const response = await fetch(path);
-			const text = await response.text();
-			setAbout(<ReactMarkdown className="paragraph">{ text }</ReactMarkdown>);
-		}
-		useMarkdown("/sobre.md");
-	}, []);
-
+	const useMarkdown = async (path) => {
+		const response = await fetch(path);
+		const text = await response.text();
+		setAbout(<ReactMarkdown className="paragraph">{ text }</ReactMarkdown>);
+	}
+	useMarkdown("/sobre.md");
+	
 	// Getting Pokemon list
-	useEffect(() => {
-		const getPokemonList = async () => {
-			const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=5000");
-			const data = await response.json().results;
-			
-
-
-			// const pokemonNames = data.results.map(item => {
-			// 	return item.name;
-			// });
-			print(data);
-		}
-		getPokemonList();
-		// console.log(pokemonList)
-	}, []);
+	const getPokemonList = async () => {
+		const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=5000");
+		const data = await response.json();
+		
+		data.results.map(item => {
+			setPokemonList((pokemonList) => pokemonList.add(unslugify(item.name)));
+		});
+	}
+	getPokemonList();
 
 	return (
 		<>
 		<Header />
 
-		<Container>
-			<Input placeholder="Pesquise o Pokémon" inputId="pokemon-name" buttonText="Pesquisar" onclick={() => setRunning(true) } />
-		</Container>
+		<Input placeholder="Pesquise o Pokémon" inputId="pokemon-name" buttonText="Pesquisar" onclick={() => setRunning(true) } autoCompleteArray={pokemonList} />
 
 		<hr className="m-0" />
 
