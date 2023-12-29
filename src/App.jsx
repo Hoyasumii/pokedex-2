@@ -3,7 +3,7 @@
 
 // React Imports
 import { useState, useEffect } from "react";
-import JsxParser from 'react-jsx-parser';
+import ReactMarkdown from 'react-markdown';
 
 // Components
 import Header from "./components/Header";
@@ -17,7 +17,6 @@ import './App.css';
 
 // JS Scripts
 import myModal from "./scripts/myModal";
-import showdown from "showdown";
 import unslugify from "./scripts/unslugify";
 
 // LocalStorage Scripts
@@ -25,14 +24,12 @@ import create from "./scripts/localStorage/create";
 import size from "./scripts/localStorage/size";
 import get from "./scripts/localStorage/get";
 
-// JSON Data
-import about from "./data/about.json";
-
 function App() {
 
 	const [ running, setRunning ] = useState(false);
-
 	const [ ls, setLs] = useState([]);
+	const [ about, setAbout ] = useState("");
+	const [ pokemonList, setPokeonList ] = useState([]);
 
 	create();
 	
@@ -48,27 +45,32 @@ function App() {
 		setLs(localStorage.getItem("data"));
 	}, [ ls ]);
 
-	let lastSearches = null;
-	
-	if (size() > 0) {
-		lastSearches = (
-			<div className="simple-list">
-				{ get().map((item) => {
-					return (
-						<Card name={ unslugify(item) } setRunning={setRunning} />
-					)
-				}) }
-			</div>
-		)
-	} else {
-		lastSearches = (
-			<div className="alert alert-primary" role="alert">
-				Ainda não há buscas realizadas
-			</div>
-		)
-	}
+	// Setting About section
+	useEffect(() => {
+		const useMarkdown = async (path) => {
+			const response = await fetch(path);
+			const text = await response.text();
+			setAbout(<ReactMarkdown className="paragraph">{ text }</ReactMarkdown>);
+		}
+		useMarkdown("/sobre.md");
+	}, []);
 
-	const converterObj = new showdown.Converter();
+	// Getting Pokemon list
+	useEffect(() => {
+		const getPokemonList = async () => {
+			const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=5000");
+			const data = await response.json().results;
+			
+
+
+			// const pokemonNames = data.results.map(item => {
+			// 	return item.name;
+			// });
+			print(data);
+		}
+		getPokemonList();
+		// console.log(pokemonList)
+	}, []);
 
 	return (
 		<>
@@ -85,11 +87,7 @@ function App() {
 			<div className="grid gap-5">
 				<div>
 					<h2>Sobre o Projeto</h2>
-					{ about.map((item) => {
-						return (
-							<JsxParser jsx={converterObj.makeHtml(item)} className="paragraph" />
-						)
-					}) }
+					{ about }
 				</div>
 				<div>
 					<div className="simple-flex mb-3">
@@ -103,7 +101,21 @@ function App() {
 						</button>
 					</div>
 
-					{ lastSearches }
+					{
+						size() > 0 ? (
+							<div className="simple-list">
+								{ get().map((item) => {
+									return (
+										<Card name={ unslugify(item) } setRunning={setRunning} />
+									)
+								}) }
+							</div>
+						) :  (
+							<div className="alert alert-primary" role="alert">
+								Ainda não há buscas realizadas
+							</div>
+						)
+					}
 					
 				</div>
 			</div>
