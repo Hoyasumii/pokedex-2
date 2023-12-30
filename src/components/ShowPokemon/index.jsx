@@ -45,7 +45,7 @@ export default function ShowPokemon({ pokemon }) {
                     <div className="grid blue bordered">
                         <div className='white-text'><s>Peso:</s> { pokemon.weight } kg</div>
                         <div className='white-text'><s>Altura:</s> { pokemon.height } m</div>
-                        <div className='white-text'><s>Exp. base:</s> { pokemon.base_experience == null ? "Desconhecido" : `${ pokemon.base_experience }` }</div>
+                        <div className='white-text'><s>Exp. base:</s> { pokemon.baseExperience }</div>
                         <div className='white-text'><s>Estatísticas:</s> { pokemon.totalStats }</div>
                     </div>
 
