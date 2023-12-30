@@ -8,9 +8,11 @@ import "./index.css";
 import types from '../../data/types.json';
 
 export default function TypeBadge({ type }) {
-    <div className={ `pokemon-type ${type}` }>
-        { types[type] }
-    </div>
+    return (
+        <div className={ `pokemon-type ${type}` }>
+            { types[type] }
+        </div>
+    )
 }
 
 TypeBadge.propTypes = {

@@ -1,4 +1,4 @@
-export default function add(data, setLs) {
+export default function sendingDataToLS(data, setLs) {
     let dataLS = localStorage.getItem("data").split(",");
     dataLS = dataLS.filter((item) => item != data);
     dataLS.push(data);

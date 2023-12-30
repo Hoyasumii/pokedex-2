@@ -1,3 +1,6 @@
+// React Import
+import PropTypes from 'prop-types';
+
 // Components
 import TypeBadge from '../TypeBadge';
 
@@ -10,7 +13,7 @@ import unslugify from '../../scripts/unslugify';
 // JSON classes
 import translateStats from '../../data/stats.json';
 
-export default function ShowPokemon(pokemon, setSearchModalBody) { 
+export default function ShowPokemon({ pokemon }) { 
 
     const types = pokemon.types.map((item) => {
         return <TypeBadge key={ item } type={ item } />;
@@ -24,7 +27,7 @@ export default function ShowPokemon(pokemon, setSearchModalBody) {
         ));
     });
 
-    setSearchModalBody((
+    return (
         <>
             <div className={ module.pokemonModalContainer }>
                 
@@ -36,7 +39,7 @@ export default function ShowPokemon(pokemon, setSearchModalBody) {
                             { unslugify(pokemon.name) }
                             <div className={ module.pokemonNumber }>#{ pokemon.id } </div>
                         </div>
-                        <div className={ module.typesContainer }>{ types.map(type => type) } </div>
+                        <div className={ module.typesContainer }>{ types } </div>
                     </div>
 
                     <div className="grid blue">
@@ -62,6 +65,10 @@ export default function ShowPokemon(pokemon, setSearchModalBody) {
 
             </div>
         </>
-    ));
+    );
 
 }
+
+ShowPokemon.propTypes = {
+    pokemon: PropTypes.object.isRequired
+};

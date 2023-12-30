@@ -10,8 +10,8 @@ import Alert from "./Alert";
 // JS Scripts
 import mySlug from "../scripts/mySlug";
 import unslugify from "../scripts/unslugify";
-import size from '../scripts/localStorage/size';
-import get from '../scripts/localStorage/get';
+import getDataSize from '../scripts/localStorage/getDataSize';
+import getData from '../scripts/localStorage/getData';
 
 export default function LastSearches({ onclick }) {
     return (
@@ -24,9 +24,9 @@ export default function LastSearches({ onclick }) {
         </div>
 
         {
-            size() > 0 ? (
+            getDataSize() > 0 ? (
                 <div className="simple-list">
-                    { get().map((item) => {
+                    { getData().map((item) => {
                         return (
                             <Card key={ `card-${ mySlug(item) }` } name={ unslugify(item) } />
                         )

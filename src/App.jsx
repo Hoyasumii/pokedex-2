@@ -25,17 +25,17 @@ import setInput from "./scripts/form/setInput";
 import getInputValue from "./scripts/form/getInputValue";
 import ApiServe from "./scripts/ApiServe";
 import clearInput from "./scripts/form/clearInput";
-import add from "./scripts/localStorage/add";
+import sendingDataToLS from "./scripts/localStorage/sendingDataToLS";
 
 // JS Classes
 import Pokemon from "./scripts/classes/Pokemon";
 
 // LocalStorage Scripts
-import create from "./scripts/localStorage/create";
+import createIfNotExist from "./scripts/localStorage/createIfNotExist";
 
 function App() {
 
-	create();
+	createIfNotExist();
 
 	// Mechanical States
 	const [ running, setRunning ] = useState(false);
@@ -67,10 +67,10 @@ function App() {
         setSearchModalBody(<Loading />);
 
 		ApiServe(getInputValue("pokemon-name")).then((data) => {
-			add(data.name, setLs);
+			sendingDataToLS(data.name, setLs);
 			setSearchModalTitle("Pokémon Encontrado!");
 			const pokemon = new Pokemon(data);
-			ShowPokemon(pokemon, setSearchModalBody);
+			setSearchModalBody(<ShowPokemon pokemon={ pokemon } />);
         }).catch(() => {
             setSearchModalTitle("Erro");
             setSearchModalBody((<p>O Pokémon buscado não existe.</p>));
@@ -79,7 +79,7 @@ function App() {
 		clearInput();
 		
 	}
-	, [ running ]);
+	, [ searchModalBody, running ]);
 
 	useEffect(() => {
 		setLs(localStorage.getItem("data"));
@@ -132,7 +132,7 @@ function App() {
 					<div>
 						<LastSearches onclick={ () => {
 							localStorage.clear();
-							create();
+							createIfNotExist();
 							setLs(localStorage.getItem("data"));
 						} } />
 					</div>
