@@ -23,7 +23,7 @@
     text-align: center;
 }
 
-.header a {
+.header p a {
     color: inherit;
     text-decoration: none;
     font-size: 1.2rem;
@@ -31,21 +31,27 @@
     transition: all 0.2s;
 }
 
-@media (orientation: portrait) {
-    .header {
-        padding: 2rem 2rem;
-    }
-    .header a {
-        font-size: 1rem;
-    }
-}
-
-.header a:hover {
+.header p a:hover {
     text-decoration: underline;
 }
 
 .title {
+    text-decoration: none;
+    cursor: pointer;
     color: #ff0;
-    display: inline-block;
     -webkit-text-stroke: 2px #3761a8;
+    display: inline-block;
+}
+
+@media (orientation: portrait) {
+    .header {
+        padding: 2rem 2rem;
+    }
+    .header p a {
+        font-size: 1rem;
+    }
+    .title:hover {
+        color: #ff0;
+        -webkit-text-stroke: 1px #3761a8;
+    }    
 }

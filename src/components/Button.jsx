@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 export default function Button({ children, onclick, classname="" }) {
     return (
-        <button className={ `btn btn-dark ${classname}` } type="button" onClick={ onclick }>{ children }</button>
+        <button className={ `btn ${ classname.includes("btn") ? classname : "btn-dark" } ${classname}` } type="button" onClick={ onclick }>{ children }</button>
     );
 }
 

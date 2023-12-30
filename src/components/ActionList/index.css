@@ -12,3 +12,13 @@
 .pokemon-list * {
     user-select: none;
 }
+
+.input-clear-button {
+    border: 0;
+    background-color: inherit;
+    z-index: 2;
+    position: absolute;
+    right: 3.5rem;
+    top: 0rem;
+    padding: .5rem 1rem;
+}

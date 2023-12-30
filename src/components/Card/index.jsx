@@ -17,7 +17,7 @@ export default function Card({ name }) {
 
     return (
         <button className={ module.card } onClick={() => { 
-            setInput(name);
+            setInput('pokemon-name', name);
             context.setRunning(true);
         }}>
             <s>{ name }</s>

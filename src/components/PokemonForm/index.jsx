@@ -11,7 +11,7 @@ import Button from "../Button";
 import Icon from "../Icon";
 
 // CSS Imports
-import "./dynamic.css";
+import "./index.css";
 
 // JS Scripts
 import mySlug from "../../scripts/mySlug";

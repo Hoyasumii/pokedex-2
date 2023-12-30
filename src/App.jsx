@@ -111,7 +111,7 @@ function App() {
 				<PokemonForm placeholder="Pesquise o Pokémon" name="pokemon-name" onclick={() => setRunning(true) } />
 
 				<ActionList onclick={ (event) => {
-					setInput(event.target.innerText);
+					setInput('pokemon-name', event.target.innerText);
 					setFilteredList([]);
 					setRunning(true);
 				} } />
@@ -150,5 +150,3 @@ function App() {
 }
 
 export default App
-// TODO: Criar as keys para divs vazias
-// TODO: Refatorar o Modal

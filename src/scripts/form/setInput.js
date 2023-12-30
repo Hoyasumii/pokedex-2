@@ -1,4 +1,4 @@
-export default function setInput(value) {
-    const input = document.getElementById('pokemon-name');
+export default function setInput(id, value) {
+    const input = document.getElementById(id);
     input.value = value;
 }
