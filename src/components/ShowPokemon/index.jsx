@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import TypeBadge from '../TypeBadge';
 
 // CSS Imports
-import module from "./.module.css";
+import "./index.css";
 
 // JS Scripts
 import unslugify from '../../scripts/unslugify';
@@ -29,27 +29,27 @@ export default function ShowPokemon({ pokemon }) {
 
     return (
         <>
-            <div className={ module.pokemonModalContainer }>
+            <div className="show-pokemon-container">
                 
-                <img className={ module.pokemonImg } src={ pokemon.sprite } alt="" srcSet="" />
+                <img className="pokemon-image" src={ pokemon.sprite } alt="" srcSet="" />
 
-                <div className={ module.infoContainer }>
+                <div className="info-container">
                     <div>
-                        <div className={ module.pokemonName }>
+                        <div className="pokemon-name">
                             { unslugify(pokemon.name) }
-                            <div className={ module.pokemonNumber }>#{ pokemon.id } </div>
+                            <div className="pokemon-number">#{ pokemon.id } </div>
                         </div>
-                        <div className={ module.typesContainer }>{ types } </div>
+                        <div className="types-container">{ types } </div>
                     </div>
 
-                    <div className="grid blue">
+                    <div className="grid blue bordered">
                         <div className='white-text'><s>Peso:</s> { pokemon.weight } kg</div>
                         <div className='white-text'><s>Altura:</s> { pokemon.height } m</div>
                         <div className='white-text'><s>Exp. base:</s> { pokemon.base_experience == null ? "Desconhecido" : `${ pokemon.base_experience }` }</div>
                         <div className='white-text'><s>Estatísticas:</s> { pokemon.totalStats }</div>
                     </div>
 
-                    <div className="grid gray">
+                    <div className="grid gray bordered">
                         { stats.map(stat => stat) }
                     </div>
 
@@ -57,10 +57,10 @@ export default function ShowPokemon({ pokemon }) {
                 
             </div>
 
-            <div className={ module.moves }>Movimentos:</div>
+            <div className="moves-title">Movimentos:</div>
             <div className="grid s4">
                 { pokemon.moves.map((move) => {
-                    return <div key={ move } className='gray-2 white-text'><s>{ unslugify(move) }</s></div>
+                    return <div key={ move } className='gray-2 white-text bordered move'><s>{ unslugify(move) }</s></div>
                 }) }
 
             </div>

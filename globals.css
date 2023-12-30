@@ -38,6 +38,10 @@
     }
 }
 
+.bordered {
+    border: 2px solid rgba(0, 0, 0, .1);
+}
+
 .blue {
     background-color: #30a7d7;
 }

@@ -103,7 +103,7 @@ function App() {
 	})();
 
 	return (
-		<Context.Provider value={{ running, setRunning, setLs, pokemonList, filteredList, setFilteredList, setSearchModalTitle, setSearchModalBody }}>
+		<Context.Provider value={{ running, setRunning, setLs, pokemonList, filteredList, setFilteredList, setSearchModalTitle }}>
 			<Header />
 
 			<div className="pokemon-container">
