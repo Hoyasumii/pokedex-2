@@ -1,4 +1,4 @@
-export default function getInput() {
-    let input = document.getElementById('pokemon-name');
+export default function getInput(id) {
+    let input = document.getElementById(id);
     return input;
 }

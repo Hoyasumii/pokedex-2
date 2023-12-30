@@ -7,6 +7,8 @@ import Header from "./components/Header";
 import PokemonForm from "./components/PokemonForm";
 import Container from "./components/Container";
 import Modal from "./components/Modal";
+import Loading from "./components/Loading";
+import ShowPokemon from "./components/ShowPokemon";
 import LastSearches from "./components/LastSearches";
 import ActionList from "./components/ActionList";
 
@@ -20,6 +22,13 @@ import './App.css';
 import myModal from "./scripts/myModal";
 import unslugify from "./scripts/unslugify";
 import setInput from "./scripts/form/setInput";
+import getInputValue from "./scripts/form/getInputValue";
+import ApiServe from "./scripts/ApiServe";
+import clearInput from "./scripts/form/clearInput";
+import add from "./scripts/localStorage/add";
+
+// JS Classes
+import Pokemon from "./scripts/classes/Pokemon";
 
 // LocalStorage Scripts
 import create from "./scripts/localStorage/create";
@@ -36,11 +45,39 @@ function App() {
 	
 	// Page States
 	const [ about, setAbout ] = useState("");
+	const [ searchModalTitle, setSearchModalTitle ] = useState("");
+	const [ searchModalBody, setSearchModalBody ] = useState("");
 
 	useEffect(() => {
-		if (running) {
-			myModal("modal");
-		}
+
+		if (!running) {
+            return;
+        }
+        
+		setRunning(false);
+		myModal("show-pokemon-modal");
+		
+		if (getInputValue('pokemon-name') === "") {
+            setSearchModalTitle("Erro");
+            setSearchModalBody("O campo de pesquisa está vazio.");
+            return;
+        }
+
+		setSearchModalTitle("Pesquisando");
+        setSearchModalBody(<Loading />);
+
+		ApiServe(getInputValue("pokemon-name")).then((data) => {
+			add(data.name, setLs);
+			setSearchModalTitle("Pokémon Encontrado!");
+			const pokemon = new Pokemon(data);
+			ShowPokemon(pokemon, setSearchModalBody);
+        }).catch(() => {
+            setSearchModalTitle("Erro");
+            setSearchModalBody((<p>O Pokémon buscado não existe.</p>));
+        })
+
+		clearInput();
+		
 	}
 	, [ running ]);
 
@@ -66,7 +103,7 @@ function App() {
 	})();
 
 	return (
-		<Context.Provider value={{ running, setRunning, setLs, pokemonList, filteredList, setFilteredList }}>
+		<Context.Provider value={{ running, setRunning, setLs, pokemonList, filteredList, setFilteredList, setSearchModalTitle, setSearchModalBody }}>
 			<Header />
 
 			<div className="pokemon-container">
@@ -104,7 +141,10 @@ function App() {
 
 			</Container>
 			
-			<Modal />
+			<Modal id="show-pokemon-modal" title={ searchModalTitle }>
+				{ searchModalBody }
+			</Modal>
+
 		</Context.Provider>
 	)
 }

@@ -1,11 +1,11 @@
-.pokemonContainer {
+.pokemonModalContainer {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
 }
 
 @media (max-width: 1000px) {
-    .pokemonContainer {
+    .pokemonModalContainer {
         grid-template-columns: 1fr;
     }
 
