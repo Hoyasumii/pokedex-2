@@ -1,10 +1,12 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-key */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react-hooks/exhaustive-deps */
 
 // React Imports
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+
+// Contexts
+import Context from '../../scripts/Context';
 
 // CSS Imports
 import module from "./.module.css";
@@ -25,24 +27,26 @@ import clearInput from '../../scripts/form/clearInput';
 import stats from '../../data/stats.json';
 import types from '../../data/types.json';
 
-export default function Modal({ running, setRunning, setLs }) { 
+export default function Modal() { 
 
     const [ modalTitle, setModalTitle ] = useState();
 
     const [ modalBody, setModalBody ] = useState();
+
+    const context = React.useContext(Context);
     
     useEffect(() => {
 
-        if (!running) {
+        if (!context.running) {
             return;
         }
         
         if (getInput() === "") {
             setModalTitle("Erro");
             setModalBody("O campo de pesquisa está vazio.");
-            setRunning(false);
+            context.setRunning(false);
             return;
-        } 
+        }
         
         setModalTitle("Pesquisando");
         setModalBody((
@@ -53,7 +57,7 @@ export default function Modal({ running, setRunning, setLs }) {
         
         useAPI(getInput()).then((data) => {
             
-            add(data.name, setLs);
+            add(data.name, context.setLs);
 
             const pokemonTypes = data.types.map((item) => {
 
@@ -123,9 +127,9 @@ export default function Modal({ running, setRunning, setLs }) {
         })
 
         clearInput();
-        setRunning(false);
+        context.setRunning(false);
 
-    }, [ running ]);
+    }, [ context.running ]);
 
     return (
         <>
@@ -134,7 +138,7 @@ export default function Modal({ running, setRunning, setLs }) {
                     <div className="modal-content">
                         <div className="modal-header">
                             <h1 className="modal-title fs-5" id="modalLabel">{ modalTitle }</h1>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"  onClick={() => setRunning(false)}></button>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"  onClick={() => context.setRunning(false)}></button>
                         </div>
                         <div className="modal-body text-center">
                             { modalBody }

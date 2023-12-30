@@ -1,19 +1,19 @@
-/* eslint-disable react/jsx-key */
-/* eslint-disable react-hooks/rules-of-hooks */
-
 // React Imports
 import { useState, useEffect } from "react";
 import ReactMarkdown from 'react-markdown';
 
 // Components
 import Header from "./components/Header";
-import Input from "./components/Input";
+import PokemonForm from "./components/PokemonForm";
 import Container from "./components/Container";
 import Modal from "./components/Modal";
-import Card from "./components/Card";
+import LastSearches from "./components/LastSearches";
+
+// Contexts
+import Context from "./scripts/Context";
 
 // CSS Imports
-import './App.css';
+import './dynamic.css';
 
 // JS Scripts
 import myModal from "./scripts/myModal";
@@ -21,20 +21,20 @@ import unslugify from "./scripts/unslugify";
 
 // LocalStorage Scripts
 import create from "./scripts/localStorage/create";
-import size from "./scripts/localStorage/size";
-import get from "./scripts/localStorage/get";
 
 function App() {
 
+	create();
+
+	// Mechanical States
 	const [ running, setRunning ] = useState(false);
 	const [ ls, setLs] = useState([]);
-	const [ about, setAbout ] = useState("");
 	const [ pokemonList, setPokemonList ] = useState(new Set());
-
-	create();
 	
-	useEffect(() => {
+	// Page States
+	const [ about, setAbout ] = useState("");
 
+	useEffect(() => {
 		if (running) {
 			myModal("modal");
 		}
@@ -46,75 +46,59 @@ function App() {
 	}, [ ls ]);
 
 	// Setting About section
-	const useMarkdown = async (path) => {
+	(async (path) => {
 		const response = await fetch(path);
 		const text = await response.text();
 		setAbout(<ReactMarkdown className="paragraph">{ text }</ReactMarkdown>);
-	}
-	useMarkdown("/sobre.md");
+	})("/sobre.md");
 	
 	// Getting Pokemon list
-	const getPokemonList = async () => {
+	(async () => {
 		const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=5000");
 		const data = await response.json();
 		
 		data.results.map(item => {
 			setPokemonList((pokemonList) => pokemonList.add(unslugify(item.name)));
 		});
-	}
-	getPokemonList();
+	})();
 
 	return (
-		<>
-		<Header />
+		<Context.Provider value={{ running, setRunning, setLs, pokemonList }}>
+			<Header />
 
-		<Input placeholder="Pesquise o Pokémon" inputId="pokemon-name" buttonText="Pesquisar" onclick={() => setRunning(true) } autoCompleteArray={pokemonList} />
+			{/* <div className="pokemon-container">
+			</div> */}
 
-		<hr className="m-0" />
+			<PokemonForm placeholder="Pesquise o Pokémon" name="pokemon-name" onclick={() => setRunning(true) } />
 
-		<Container hasMultipleChildren={true}>
+			<hr className="m-0" />
 
-			<div className="grid gap-5">
-				<div>
-					<h2>Sobre o Projeto</h2>
-					{ about }
-				</div>
-				<div>
-					<div className="simple-flex mb-3">
-						<h2>Últimas Buscas</h2>
-						<button className="btn btn-dark" onClick={() => { 
-							localStorage.clear(); 
-							create();
-							setLs(localStorage.getItem("data"));
-						}}>
-							<i className="bi bi-trash"></i>
-						</button>
+			<Container hasMultipleChildren={true}>
+
+				<div className="grid gap-5">
+
+					<div>
+						<h2>Sobre o Projeto</h2>
+						{ about }
 					</div>
 
-					{
-						size() > 0 ? (
-							<div className="simple-list">
-								{ get().map((item) => {
-									return (
-										<Card name={ unslugify(item) } setRunning={setRunning} />
-									)
-								}) }
-							</div>
-						) :  (
-							<div className="alert alert-primary" role="alert">
-								Ainda não há buscas realizadas
-							</div>
-						)
-					}
-					
-				</div>
-			</div>
+					<div>
+						<LastSearches onclick={ () => {
+							localStorage.clear();
+							create();
+							setLs(localStorage.getItem("data"));
+						} } />
+					</div>
 
-		</Container>
-		
-		<Modal running={running} setRunning={setRunning} setLs={setLs} />
-		</>
+				</div>
+
+			</Container>
+			
+			<Modal />
+		</Context.Provider>
 	)
 }
 
 export default App
+// TODO: Rever a importância desse Container e Refatorar as classes CSS
+// TODO: Criar as keys para divs vazias

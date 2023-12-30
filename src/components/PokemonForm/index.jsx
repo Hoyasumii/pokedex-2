@@ -1,18 +1,27 @@
-/* eslint-disable react/prop-types */
-
 // React Imports
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+
+// Contexts
+import Context from "../../scripts/Context";
+
+// Components
+import Input from "../Input";
+import Button from "../Button";
+import Icon from "../Icon";
 
 // CSS Imports
 import "./dynamic.css";
 
 // JS Scripts
-import unslugify from "../../scripts/unslugify";
+import mySlug from "../../scripts/mySlug";
 import setInput from "../../scripts/form/setInput";
 
-export default function Input({ placeholder, inputId, buttonText, onclick, autoCompleteArray }) {
+export default function PokemonForm({ placeholder, name, onclick }) {
 
-    let autoCompleteList = Array.from(autoCompleteArray);
+    const context = React.useContext(Context);
+
+    let autoCompleteList = Array.from(context.pokemonList);
     const [ filteredList, setFilteredList ] = useState([]);
 
     const handleKeyPress = (event) => {
@@ -22,6 +31,7 @@ export default function Input({ placeholder, inputId, buttonText, onclick, autoC
     }
 
     const onchange = (event) => {
+        
         const value = event.target.value;
         
         if (value === "" || value.length < 2) {
@@ -29,15 +39,26 @@ export default function Input({ placeholder, inputId, buttonText, onclick, autoC
             return;
         }
 
-        setFilteredList(autoCompleteList.filter(item => item.slice(0, value.length) === unslugify(value)));
+        setFilteredList(autoCompleteList.filter(item => {
+            return mySlug(item).includes(mySlug(value));
+        }));
 
     };
+
+    useEffect(() => {
+        if (context.running) {
+            setFilteredList([]);
+            return;
+        }
+    }, [ context.running ]);
 
     return (
         <div className="pokemon-container">
             <div className="pokemon-form">
-                <input type="text" id={inputId} className="form-control shadow-sm" placeholder={placeholder} autoComplete="off" onKeyPress={handleKeyPress} onChange={ onchange } />
-                <button className="btn btn-dark w-fit" type="button" onClick={onclick}>{buttonText}</button>
+                <Input name={ name } id={ name } placeholder={ placeholder } onkeyup={ handleKeyPress } onchange={ onchange } />
+                <Button onclick={ onclick }>
+                    <Icon name="search" />
+                </Button>
             </div>
             {
                 filteredList.length > 0 ?
@@ -57,4 +78,10 @@ export default function Input({ placeholder, inputId, buttonText, onclick, autoC
             }
         </div>
     )
+}
+
+PokemonForm.propTypes = {
+    placeholder: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    onclick: PropTypes.func.isRequired
 }
