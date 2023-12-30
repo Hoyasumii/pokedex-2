@@ -79,7 +79,7 @@ function App() {
 		clearInput();
 		
 	}
-	, [ searchModalBody, running ]);
+	, [ running ]);
 
 	useEffect(() => {
 		setLs(localStorage.getItem("data"));
