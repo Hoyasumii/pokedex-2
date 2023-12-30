@@ -13,7 +13,6 @@ import Context from "../../scripts/Context";
 import "./index.css";
 
 // JS Scripts
-import getInputValue from "../../scripts/form/getInputValue";
 import setInput from "../../scripts/form/setInput";
 
 export default function ActionList({ onclick }) {
