@@ -13,7 +13,7 @@ import module from "./.module.css";
 import "./dynamic.css";
 
 // JS Scripts
-import getInput from '../../scripts/form/getInput';
+import getInputValue from '../../scripts/form/getInputValue';
 import useAPI from '../../scripts/useAPI';
 import unslugify from '../../scripts/unslugify';
 
@@ -41,7 +41,7 @@ export default function Modal() {
             return;
         }
         
-        if (getInput() === "") {
+        if (getInputValue() === "") {
             setModalTitle("Erro");
             setModalBody("O campo de pesquisa está vazio.");
             context.setRunning(false);
@@ -55,7 +55,7 @@ export default function Modal() {
             </div>
         ));
         
-        useAPI(getInput()).then((data) => {
+        useAPI(getInputValue()).then((data) => {
             
             add(data.name, context.setLs);
 

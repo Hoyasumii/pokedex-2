@@ -1,19 +1,34 @@
 // React Imports
-import { useState, useEffect } from "react";
+import React from "react";
+import PropTypes from "prop-types";
+
+// Contexts
+import Context from "../../scripts/Context";
 
 // CSS Imports
 import "./dynamic.css";
 
-// JS Scripts
-import mySlug from "../../scripts/mySlug";
-import setInput from "../../scripts/form/setInput";
+export default function ActionList({ onclick }) {
 
-export default function ActionList(array, action) {
+    const context = React.useContext(Context);
 
-    const autoCompleteList = Array.from(array);
-    const [ filteredList, setFilteredList ] = useState([]);
+    return (
+        <> {
+        context.filteredList.length > 0 ?
+            <ul className="list-group pokemon-list">
+                {
+                    context.filteredList.map((item, index) => {
+                        return <li className="list-group-item list-group-item-action" key={`${ item }-${index}-list`} onClick={ onclick }>{item}</li>
+                    })
+                }
+            </ul>
+        : ""
+        } </>
+        
+    )
 
+}
 
-
-    // return (<>H</>);
+ActionList.propTypes = {
+    onclick: PropTypes.func.isRequired
 }

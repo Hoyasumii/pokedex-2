@@ -1,5 +1,5 @@
 // React Imports
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 
 // Contexts
@@ -15,14 +15,10 @@ import "./dynamic.css";
 
 // JS Scripts
 import mySlug from "../../scripts/mySlug";
-import setInput from "../../scripts/form/setInput";
 
 export default function PokemonForm({ placeholder, name, onclick }) {
 
     const context = React.useContext(Context);
-
-    let autoCompleteList = Array.from(context.pokemonList);
-    const [ filteredList, setFilteredList ] = useState([]);
 
     const handleKeyPress = (event) => {
         if (event.key === "Enter") {
@@ -35,11 +31,11 @@ export default function PokemonForm({ placeholder, name, onclick }) {
         const value = event.target.value;
         
         if (value === "" || value.length < 2) {
-            setFilteredList([]);
+            context.setFilteredList([]);
             return;
         }
 
-        setFilteredList(autoCompleteList.filter(item => {
+        context.setFilteredList(Array.from(context.pokemonList).filter(item => {
             return mySlug(item).includes(mySlug(value));
         }));
 
@@ -47,35 +43,17 @@ export default function PokemonForm({ placeholder, name, onclick }) {
 
     useEffect(() => {
         if (context.running) {
-            setFilteredList([]);
+            context.setFilteredList([]);
             return;
         }
-    }, [ context.running ]);
+    }, [ context, context.running ]);
 
     return (
-        <div className="pokemon-container">
-            <div className="pokemon-form">
-                <Input name={ name } id={ name } placeholder={ placeholder } onkeyup={ handleKeyPress } onchange={ onchange } />
-                <Button onclick={ onclick }>
-                    <Icon name="search" />
-                </Button>
-            </div>
-            {
-                filteredList.length > 0 ?
-                    <ul className="list-group pokemon-list">
-                        {
-                            filteredList.map((item, index) => {
-                                return <li className="list-group-item list-group-item-action" key={index} onClick={() => {
-                                    setInput(item);
-                                    setFilteredList([]);
-                                    onclick();
-                                }
-                                }>{item}</li>
-                            })
-                        }
-                    </ul>
-                : ""
-            }
+        <div className="pokemon-form">
+            <Input name={ name } id={ name } placeholder={ placeholder } onkeyup={ handleKeyPress } onchange={ onchange } />
+            <Button onclick={ onclick }>
+                <Icon name="search" />
+            </Button>
         </div>
     )
 }

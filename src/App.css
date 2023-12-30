@@ -1,0 +1,42 @@
+.title {
+    font-family: 'Silkscreen', sans-serif;
+}
+
+.paragraph {
+    text-align: justify;
+}
+
+.paragraph a {
+    color: #000;
+    text-decoration: none;
+}
+
+.paragraph a:hover {
+    text-decoration: underline;
+}
+
+.pokemon-container {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    margin: 5rem auto;
+    gap: 1rem;
+    justify-items: center;
+    align-items: center;
+    min-width: 50%;
+    max-width: 50%;
+}
+
+@media (max-width: 1024px) {
+    .pokemon-container {
+        min-width: 75%;
+        max-width: 75%;
+    }
+}
+
+@media (max-width: 768px) or (orientation: portrait) {
+    .pokemon-container {
+        min-width: 95%;
+        max-width: 95%;
+    }
+}

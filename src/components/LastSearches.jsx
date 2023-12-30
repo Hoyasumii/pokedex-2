@@ -28,7 +28,7 @@ export default function LastSearches({ onclick }) {
                 <div className="simple-list">
                     { get().map((item) => {
                         return (
-                            <Card key={ mySlug(item) } name={ unslugify(item) } />
+                            <Card key={ `card-${ mySlug(item) }` } name={ unslugify(item) } />
                         )
                     }) }
                 </div>

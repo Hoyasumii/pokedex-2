@@ -8,16 +8,18 @@ import PokemonForm from "./components/PokemonForm";
 import Container from "./components/Container";
 import Modal from "./components/Modal";
 import LastSearches from "./components/LastSearches";
+import ActionList from "./components/ActionList";
 
 // Contexts
 import Context from "./scripts/Context";
 
 // CSS Imports
-import './dynamic.css';
+import './App.css';
 
 // JS Scripts
 import myModal from "./scripts/myModal";
 import unslugify from "./scripts/unslugify";
+import setInput from "./scripts/form/setInput";
 
 // LocalStorage Scripts
 import create from "./scripts/localStorage/create";
@@ -30,6 +32,7 @@ function App() {
 	const [ running, setRunning ] = useState(false);
 	const [ ls, setLs] = useState([]);
 	const [ pokemonList, setPokemonList ] = useState(new Set());
+    const [ filteredList, setFilteredList ] = useState([]);
 	
 	// Page States
 	const [ about, setAbout ] = useState("");
@@ -63,17 +66,24 @@ function App() {
 	})();
 
 	return (
-		<Context.Provider value={{ running, setRunning, setLs, pokemonList }}>
+		<Context.Provider value={{ running, setRunning, setLs, pokemonList, filteredList, setFilteredList }}>
 			<Header />
 
-			{/* <div className="pokemon-container">
-			</div> */}
+			<div className="pokemon-container">
 
-			<PokemonForm placeholder="Pesquise o Pokémon" name="pokemon-name" onclick={() => setRunning(true) } />
+				<PokemonForm placeholder="Pesquise o Pokémon" name="pokemon-name" onclick={() => setRunning(true) } />
 
-			<hr className="m-0" />
+				<ActionList onclick={ (event) => {
+					setInput(event.target.innerText);
+					setFilteredList([]);
+					setRunning(true);
+				} } />
 
-			<Container hasMultipleChildren={true}>
+			</div>
+
+			<hr className="m-0 mx-5" />
+
+			<Container>
 
 				<div className="grid gap-5">
 
@@ -100,5 +110,5 @@ function App() {
 }
 
 export default App
-// TODO: Rever a importância desse Container e Refatorar as classes CSS
 // TODO: Criar as keys para divs vazias
+// TODO: Refatorar o Modal
