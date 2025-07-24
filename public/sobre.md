@@ -1,6 +1,6 @@
 Esse projeto foi desenvolvido no intuito de consumir a [**PokéAPI**](https://pokeapi.co/), que é uma api bastante utilizada no meio acadêmico.
 
-Ele foi desenvolvido por mim, [**Alan Reis**](https://hoyasumii.github.io/Hoyasumii/), que já trabalhei nessa API antes, [**como pode ver clicando aqui**](https://pokedex-tan-seven.vercel.app/), mas a tarefa dessa vez foi diferente. Consumir diretamente ela e interagir com ela por meio de pesquisas.
+Ele foi desenvolvido por mim, [**Alan Reis**](https://alanreis.blog), que já trabalhei nessa API antes, [**como pode ver clicando aqui**](https://pokedex-tan-seven.vercel.app/), mas a tarefa dessa vez foi diferente. Consumir diretamente ela e interagir com ela por meio de pesquisas.
 
 O projeto foi desenvolvido em **ReactJS** com **Vite**, que é uma ferramenta bastante conhecida na comunidade de front-end, por facilitar o desenvolvimento de aplicações React.
 

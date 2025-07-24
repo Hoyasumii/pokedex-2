@@ -81,6 +81,7 @@ function App() {
 	}
 	, [ running ]);
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		setLs(localStorage.getItem("data"));
 	}, [ ls ]);
@@ -107,7 +108,6 @@ function App() {
 			<Header />
 
 			<div className="pokemon-container">
-
 				<PokemonForm placeholder="Pesquise o Pokémon" name="pokemon-name" onclick={() => setRunning(true) } />
 
 				<ActionList onclick={ (event) => {
