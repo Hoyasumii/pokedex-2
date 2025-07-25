@@ -88,7 +88,7 @@ function App() {
 
 	// Setting About section
 	(async (path) => {
-		const response = await fetch(path);
+		const response = await fetch(path, { cache: "force-cache" });
 		const text = await response.text();
 		setAbout(<ReactMarkdown className="paragraph">{ text }</ReactMarkdown>);
 	})("/sobre.md");
